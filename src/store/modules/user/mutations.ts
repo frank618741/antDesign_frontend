@@ -22,7 +22,7 @@ export const mutations: MutationTree<UserState> & Mutations = {
     
     for(let i =0; i < info.length; i++)
     {
-    state.userInfo[i]= info[i];
+        state.userInfo[i]= info[i];
     
     }
   },

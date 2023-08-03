@@ -25,10 +25,7 @@ export const actions: ActionTree<UserState, RootState> & Actions = {
     if (!state.userInfo[0]) {
       ;
     }
-
-    console.log(commit);
-    console.log("ken");
-    
+    //将用户信息存入vuex
     await commit(UserMutationTypes.SET_INFO, actionUserSetInfo);
     
   },

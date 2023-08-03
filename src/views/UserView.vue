@@ -50,11 +50,9 @@ import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
 import { ref, createVNode } from 'vue';
 import { Modal } from 'ant-design-vue';
 import axios from '@/utils/axios';
-import { useStore } from '@/store';
+import { useStore } from '../store';
 import { UserActionTypes } from '../store/modules/user/action-types'
-import {actions} from '../store/modules/user/actions'
-
-
+export type {singleUserDataInt};
 
 
 interface userDataInt {
@@ -69,7 +67,7 @@ interface userDataInt {
   // [key: string]的作用就是,在接口中对key值的类型进行声明 这里的key值指的就是接口中的键值如userID name role等
 }
 
-interface userDataIntk {
+interface singleUserDataInt {
   userID: string;
   name: string;
   role: string;
@@ -80,8 +78,9 @@ interface userDataIntk {
   // [key: string]的作用就是,在接口中对key值的类型进行声明 这里的key值指的就是接口中的键值如userID name role等
 }
 
+
 let axiosColumnData = reactive({
-  columnData: [] as userDataIntk[],
+  columnData: [] as singleUserDataInt[],
 });
 
 
@@ -93,16 +92,13 @@ const getAxiosUserData = async () => {
 
     const res = await axios.get("/user/userandstaff");
 
-    let tempArray = JSON.parse(JSON.stringify(res.data as userDataIntk[]));
+    let tempArray = JSON.parse(JSON.stringify(res.data as singleUserDataInt[]));
 
     tempArray.map((val: any, index: any) => {
       axiosColumnData.columnData.push(val);
     })
 
     await store.dispatch(UserActionTypes.ACTION_SET_INFO,  axiosColumnData.columnData)
-
-
-
   } catch (error) {
     console.log(error);
   }
@@ -260,7 +256,7 @@ export default defineComponent({
     
     onMounted(() => {
       getAxiosUserData();
-      console.log(store.state.user.userInfo);
+      // console.log(store.state.user.userInfo);
 
     });
 
